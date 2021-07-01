@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Store {
     private static AtomicInteger POST_ID = new AtomicInteger(4);
-    private static AtomicInteger CANDIDATE_ID = new AtomicInteger(0);
+    private static AtomicInteger CANDIDATE_ID = new AtomicInteger(4);
     private static final Store INST = new Store();
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
@@ -24,6 +24,9 @@ public class Store {
                 LocalDateTime.of(2021, 06, 25, 14, 25)));
         posts.put(3, new Post(3, "Senior Java Job", "Very good job",
                 LocalDateTime.of(2021, 06, 29, 19, 27)));
+        candidates.put(1, new Candidate(1, "Junior Java"));
+        candidates.put(2, new Candidate(2, "Middle Java"));
+        candidates.put(3, new Candidate(3, "Senior Java"));
     }
 
     public static Store instOf() {
@@ -39,12 +42,24 @@ public class Store {
     }
 
     public void save(Post post) {
-        post.setId(POST_ID.incrementAndGet());
+        if (post.getId() == 0) {
+            post.setId(POST_ID.incrementAndGet());
+        }
         posts.put(post.getId(), post);
     }
 
     public void save(Candidate candidate) {
-        candidate.setId(CANDIDATE_ID.incrementAndGet());
+        if (candidate.getId() == 0) {
+            candidate.setId(CANDIDATE_ID.incrementAndGet());
+        }
         candidates.put(candidate.getId(), candidate);
+    }
+
+    public Post findPostById(int id) {
+        return posts.get(id);
+    }
+
+    public Candidate findCandidateById(int id) {
+        return candidates.get(id);
     }
 }
