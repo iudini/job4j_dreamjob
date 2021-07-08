@@ -20,6 +20,32 @@
 
     <title>Работа мечты</title>
 </head>
+<header>
+    <div class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <a href="<%=request.getContextPath()%>" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            Home
+        </a>
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/post/edit.jsp">Добавить вакансию</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">
+                    <c:out value="${sessionScope.user.name}"/> | Выйти
+                </a>
+            </li>
+        </ul>
+    </div>
+</header>
 <body>
 <div class="container pt-3">
 
