@@ -12,6 +12,6 @@ CREATE TABLE candidate (
 CREATE TABLE dream_user (
     id SERIAL PRIMARY KEY,
     name TEXT,
-    email TEXT,
+    email TEXT UNIQUE,
     password TEXT
 );
