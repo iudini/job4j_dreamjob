@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -115,6 +116,15 @@ public class PsqlStore implements Store {
     }
 
     @Override
+    public void save(User user) {
+        if (user.getId() == 0) {
+            create(user);
+        } else {
+            update(user);
+        }
+    }
+
+    @Override
     public Post findPostById(int id) {
         Post post = new Post(0, "", "");
         try (Connection cn = pool.getConnection();
@@ -151,6 +161,30 @@ public class PsqlStore implements Store {
             LOG.error("Exception ", e);
         }
         return candidate;
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        User user = new User();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                     "SELECT * FROM dream_user WHERE email = ?"
+             )) {
+            ps.setString(1, email);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    user = new User(
+                            it.getInt("id"),
+                            it.getString("name"),
+                            it.getString("email"),
+                            it.getString("password")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            LOG.error("Exception ", e);
+        }
+        return user;
     }
 
     @Override
@@ -205,6 +239,27 @@ public class PsqlStore implements Store {
         return candidate;
     }
 
+    private User create(User user) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                     "INSERT INTO dream_user(name, email, password) VALUES (?, ?, ?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS
+             )) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    user.setId(id.getInt(1));
+                }
+            }
+        } catch (SQLException e) {
+            LOG.error("Exception ", e);
+        }
+        return user;
+    }
+
     private void update(Post post) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
@@ -226,6 +281,21 @@ public class PsqlStore implements Store {
              )) {
             ps.setString(1, candidate.getName());
             ps.setInt(2, candidate.getId());
+            ps.execute();
+        } catch (SQLException e) {
+            LOG.error("Exception ", e);
+        }
+    }
+
+    private void update(User user) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                     "UPDATE dream_user SET name = ?, email = ?, password = ? WHERE id = ?"
+             )) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.setInt(4, user.getId());
             ps.execute();
         } catch (SQLException e) {
             LOG.error("Exception ", e);
