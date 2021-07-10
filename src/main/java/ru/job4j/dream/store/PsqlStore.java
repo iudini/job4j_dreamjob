@@ -165,7 +165,7 @@ public class PsqlStore implements Store {
 
     @Override
     public User findByEmail(String email) {
-        User user = new User();
+        User user = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "SELECT * FROM dream_user WHERE email = ?"

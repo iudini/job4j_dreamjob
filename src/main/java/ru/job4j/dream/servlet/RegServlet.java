@@ -21,12 +21,7 @@ public class RegServlet extends HttpServlet {
         String name = req.getParameter("name");
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        if (name.length() != 0 && email.length() != 0 && password.length() != 0) {
-            PsqlStore.instOf().save(new User(0, name, email, password));
-            resp.sendRedirect(req.getContextPath() + "/login.jsp");
-        } else {
-            req.setAttribute("error", "Все поля должны быть заполнены");
-            req.getRequestDispatcher("reg.jsp").forward(req, resp);
-        }
+        PsqlStore.instOf().save(new User(0, name, email, password));
+        resp.sendRedirect(req.getContextPath() + "/login.jsp");
     }
 }
