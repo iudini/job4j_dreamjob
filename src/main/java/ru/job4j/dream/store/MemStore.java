@@ -21,18 +21,18 @@ public class MemStore implements Store {
     private final Map<Integer, User> users = new ConcurrentHashMap<>();
 
     private MemStore() {
-        posts.put(1, new Post(1, "Junior Java Job", "Same description",
-                LocalDateTime.of(2021, 06, 20, 20, 01)));
-        posts.put(2, new Post(2, "Middle Java Job", "Same description",
-                LocalDateTime.of(2021, 06, 25, 14, 25)));
-        posts.put(3, new Post(3, "Senior Java Job", "Very good job",
-                LocalDateTime.of(2021, 06, 29, 19, 27)));
-        candidates.put(1, new Candidate(1, "Junior Java"));
-        candidates.put(2, new Candidate(2, "Middle Java"));
-        candidates.put(3, new Candidate(3, "Senior Java"));
-        users.put(1, new User(1, "Oleg", "oleg@oleg", "oleg"));
-        users.put(2, new User(2, "Ivan", "ivan@ivan", "ivan"));
-        users.put(3, new User(3, "Petr", "petr@petr", "petr"));
+//        posts.put(1, new Post(1, "Junior Java Job", "Same description",
+//                LocalDateTime.of(2021, 06, 20, 20, 01)));
+//        posts.put(2, new Post(2, "Middle Java Job", "Same description",
+//                LocalDateTime.of(2021, 06, 25, 14, 25)));
+//        posts.put(3, new Post(3, "Senior Java Job", "Very good job",
+//                LocalDateTime.of(2021, 06, 29, 19, 27)));
+//        candidates.put(1, new Candidate(1, "Junior Java"));
+//        candidates.put(2, new Candidate(2, "Middle Java"));
+//        candidates.put(3, new Candidate(3, "Senior Java"));
+//        users.put(1, new User(1, "Oleg", "oleg@oleg", "oleg"));
+//        users.put(2, new User(2, "Ivan", "ivan@ivan", "ivan"));
+//        users.put(3, new User(3, "Petr", "petr@petr", "petr"));
     }
 
     public static MemStore instOf() {
