@@ -7,30 +7,47 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            if ($('#name').val() === '') {
+                alert($('#name').attr('title'));
+            }
+            if ($('#surname').val() === '') {
+                alert($('#surname').attr('title'));
+            }
+            if ($('#sex').val() === '') {
+                alert($('#sex').attr('title'));
+            }
+            if ($('#description').val() === '') {
+                alert($('#description').attr('title'));
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="container">
     <form>
         <div class="form-group">
             <label for="name">Имя</label>
-            <input type="text" class="form-control" id="name">
+            <input type="text" class="form-control" id="name" title="Введите имя">
         </div>
         <div class="form-group">
             <label for="surname">Фамилия</label>
-            <input type="text" class="form-control" id="surname">
+            <input type="text" class="form-control" id="surname" title="Введите фамилию">
         </div>
         <div class="form-group">
             <label for="sex">Пол</label>
-            <select class="form-control" id="sex">
+            <select class="form-control" id="sex"  title="Укажите пол">
+                <option></option>
                 <option>мужчина</option>
                 <option>женщина</option>
             </select>
         </div>
         <div class="form-group">
             <label for="description">Описание</label>
-            <input type="text" class="form-control" id="description">
+            <input type="text" class="form-control" id="description" title="Введите описание">
         </div>
-        <button type="submit" class="btn btn-primary">Отправить</button>
+        <button type="submit" class="btn btn-primary" onclick="return validate();">Отправить</button>
     </form>
     <table class="table">
         <thead>
