@@ -23,6 +23,21 @@
             }
         }
     </script>
+    <script>
+        function addRow() {
+            const name = $('#name').val();
+            const surname = $('#surname').val();
+            const sex = $('#sex').val();
+            const description = $('#description').val();
+
+            //получаем ссылку на последний элемент в таблице.
+            //и после него добавляем html
+            $('#table tr:last').after('<tr><td>' + name
+                + '</td><td>' + surname
+                + '</td><td>' + sex
+                + '</td><td>' + description +'</td></tr>');
+        }
+    </script>
 </head>
 <body>
 <div class="container">
@@ -49,10 +64,9 @@
         </div>
         <button type="submit" class="btn btn-primary" onclick="return validate();">Отправить</button>
     </form>
-    <table class="table">
+    <table class="table" id="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Имя</th>
                 <th scope="col">Фамилия</th>
                 <th scope="col">Пол</th>
@@ -61,21 +75,18 @@
         </thead>
         <tbody>
             <tr>
-                <th scope="row">1</th>
                 <td>Марк</td>
                 <td>Отто</td>
                 <td>мужчина</td>
                 <td>марк отто мужчина</td>
             </tr>
             <tr>
-                <th scope="row">2</th>
                 <td>Яков</td>
                 <td>Тында</td>
                 <td>мужчина</td>
                 <td>обычный Яков Тында</td>
             </tr>
             <tr>
-                <th scope="row">3</th>
                 <td>Лили</td>
                 <td>Роуз</td>
                 <td>женщина</td>
@@ -83,6 +94,7 @@
             </tr>
         </tbody>
     </table>
+    <button type="button" class="btn btn-default" onclick="addRow()">Add row</button>
 </div>
 </body>
 </html>
