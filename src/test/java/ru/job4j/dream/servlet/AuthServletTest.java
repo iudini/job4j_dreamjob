@@ -57,7 +57,7 @@ public class AuthServletTest {
         HttpSession session = mock(HttpSession.class);
         RequestDispatcher dispatcher = mock(RequestDispatcher.class);
 
-        PowerMockito.when(req.getParameter("email")).thenReturn("root@local");
+        PowerMockito.when(req.getParameter("email")).thenReturn("local@local");
         PowerMockito.when(req.getParameter("password")).thenReturn("root");
         PowerMockito.when(req.getSession()).thenReturn(session);
         PowerMockito.when(req.getRequestDispatcher("login.jsp")).thenReturn(dispatcher);

@@ -9,9 +9,9 @@ public class PsqlMain {
         Store store = PsqlStore.instOf();
         store.save(new Post(0, "Java Job", "Description for Java Job"));
         store.save(new Post(0, "Junior Java Job", "Description for Junior Java Job"));
-        store.save(new Candidate(0, "Ivan"));
-        store.save(new Candidate(0, "Oleg"));
-        store.save(new Candidate(0, "Petr"));
+        store.save(new Candidate(0, "Ivan", 1));
+        store.save(new Candidate(0, "Oleg", 2));
+        store.save(new Candidate(0, "Petr", 3));
         store.save(new User(0, "Oleg", "oleg@oleg", "oleg"));
         store.save(new User(0, "Ivan", "ivan@ivan", "ivan"));
         store.save(new User(0, "Petr", "petr@petr", "petr"));
@@ -21,7 +21,7 @@ public class PsqlMain {
         for (Candidate candidate : store.findAllCandidates()) {
             System.out.println(candidate.getId() + " " + candidate.getName());
         }
-        store.save(new Candidate(1, "Gregory"));
+        store.save(new Candidate(1, "Gregory", 1));
         store.save(new Post(2, "Hard Job", "Very Hard Job"));
         store.deleteCandidateById(2);
         for (Candidate candidate : store.findAllCandidates()) {

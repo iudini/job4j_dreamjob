@@ -14,12 +14,15 @@ public class DeleteCandidateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String id = req.getParameter("id");
         PsqlStore.instOf().deleteCandidateById(Integer.parseInt(id));
-        for (File file : new File("c:\\images\\").listFiles()) {
-            String fileName = file.getName();
-            fileName = fileName.substring(0, fileName.indexOf('.'));
-            if (fileName.equals(id)) {
-                file.delete();
-                break;
+        File source = new File("c:\\images\\");
+        if (source.isDirectory()) {
+            for (File file : source.listFiles()) {
+                String fileName = file.getName();
+                fileName = fileName.substring(0, fileName.indexOf('.'));
+                if (fileName.equals(id)) {
+                    file.delete();
+                    break;
+                }
             }
         }
         resp.sendRedirect(req.getContextPath() + "/candidates.do");

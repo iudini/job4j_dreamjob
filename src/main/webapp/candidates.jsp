@@ -1,3 +1,4 @@
+<%@ page import="ru.job4j.dream.store.PsqlStore" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!doctype html>
@@ -68,7 +69,7 @@
                     <c:forEach items="${candidates}" var="can">
                         <tr>
                             <td>
-                                <a href="candidate/edit.jsp?id=${can.id}">
+                                <a href='<c:url value="/candidate/edit.jsp?id=${can.id}&city_id=${can.cityId}"/>'>
                                     <i class="fa fa-edit mr-3"></i>
                                 </a>
                                 <c:out value="${can.name}"/>

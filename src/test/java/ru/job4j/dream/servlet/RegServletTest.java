@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -48,12 +49,13 @@ public class RegServletTest {
         HttpServletResponse resp = mock(HttpServletResponse.class);
 
         when(req.getParameter("name")).thenReturn("name");
-        when(req.getParameter("email")).thenReturn("email");
+        when(req.getParameter("email")).thenReturn("any@email");
         when(req.getParameter("password")).thenReturn("password");
 
         new RegServlet().doPost(req, resp);
 
         verify(resp).sendRedirect(req.getContextPath() + "/login.jsp");
+        assertThat(store.findByEmail("any@email").getName(), is("name"));
     }
 
     @Test

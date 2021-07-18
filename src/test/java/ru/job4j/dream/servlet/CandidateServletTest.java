@@ -37,6 +37,7 @@ public class CandidateServletTest {
 
         when(req.getParameter("id")).thenReturn("0");
         when(req.getParameter("name")).thenReturn("n");
+        when(req.getParameter("city_id")).thenReturn("0");
 
         new CandidateServlet().doPost(req, resp);
 

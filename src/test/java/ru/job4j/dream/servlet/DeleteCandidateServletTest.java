@@ -15,11 +15,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(PsqlStore.class)
@@ -28,7 +28,7 @@ public class DeleteCandidateServletTest {
     @Test
     public void whenDeleteCandidate() throws ServletException, IOException {
         Store store = MemStore.instOf();
-        store.save(new Candidate(0, "name"));
+        store.save(new Candidate(0, "name", 0));
 
         PowerMockito.mockStatic(PsqlStore.class);
         PowerMockito.when(PsqlStore.instOf()).thenReturn(store);
@@ -40,7 +40,7 @@ public class DeleteCandidateServletTest {
 
         new DeleteCandidateServlet().doGet(req, resp);
 
-        Collection<Candidate> result = store.findAllCandidates();
-        Assert.assertTrue(result.isEmpty());
+        verify(resp).sendRedirect(req.getContextPath() + "/candidates.do");
+        Assert.assertNull(store.findCandidateById(5));
     }
 }
