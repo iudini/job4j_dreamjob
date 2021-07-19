@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 public class CityServlet extends HttpServlet {
-    private final List<City> cities = (List<City>) PsqlStore.instOf().findAllCities();
     private static final Gson GSON = new GsonBuilder().create();
 
     @Override
@@ -23,6 +22,7 @@ public class CityServlet extends HttpServlet {
         resp.setContentType("application/json; charset=utf-8");
         resp.setHeader("Access-Control-Allow-Origin", "*");
         OutputStream output = resp.getOutputStream();
+        List<City> cities = (List<City>) PsqlStore.instOf().findAllCities();
         String json = GSON.toJson(cities);
         output.write(json.getBytes(StandardCharsets.UTF_8));
         output.flush();
