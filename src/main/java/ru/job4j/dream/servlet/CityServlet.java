@@ -20,7 +20,6 @@ public class CityServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json; charset=utf-8");
-        resp.setHeader("Access-Control-Allow-Origin", "*");
         OutputStream output = resp.getOutputStream();
         List<City> cities = (List<City>) PsqlStore.instOf().findAllCities();
         String json = GSON.toJson(cities);
